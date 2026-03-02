@@ -133,24 +133,50 @@ export default async function DashboardPage() {
                   </div>
                 </div>
 
-                {/* Chart Pie Dummy: Komposisi Keuangan */}
                 <div className="mt-10 bg-white rounded-2xl shadow p-6">
-                  <h4 className="text-lg font-bold text-green-700 mb-4">Komposisi Keuangan Masjid</h4>
-                  <div className="flex items-center gap-8">
-                    <svg viewBox="0 0 100 100" width="100" height="100">
-                      <circle r="40" cx="50" cy="50" fill="#bbf7d0" />
-                      <path d="M50,50 L50,10 A40,40 0 0,1 90,50 Z" fill="#22C55E" />
-                      <path d="M50,50 L90,50 A40,40 0 0,1 50,90 Z" fill="#4ade80" />
-                    </svg>
-                    <div className="flex flex-col gap-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <span className="inline-block w-3 h-3 rounded bg-green-500" /> Operasional (40%)
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Komposisi Keuangan Masjid */}
+                    <div>
+                      <h4 className="text-lg font-bold text-green-700 mb-4">Komposisi Keuangan Masjid</h4>
+                      <div className="flex items-center gap-8">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                          <circle r="40" cx="50" cy="50" fill="#bbf7d0" />
+                          <path d="M50,50 L50,10 A40,40 0 0,1 90,50 Z" fill="#22C55E" />
+                          <path d="M50,50 L90,50 A40,40 0 0,1 50,90 Z" fill="#4ade80" />
+                        </svg>
+                        <div className="flex flex-col gap-2 text-sm">
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-500" /> Operasional (40%)
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-400" /> Pembangunan (35%)
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-200" /> Sosial (25%)
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="inline-block w-3 h-3 rounded bg-green-400" /> Pembangunan (35%)
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="inline-block w-3 h-3 rounded bg-green-200" /> Sosial (25%)
+                    </div>
+                    {/* Komposisi Donasi & Zakat */}
+                    <div>
+                      <h4 className="text-lg font-bold text-green-700 mb-4">Komposisi Donasi & Zakat</h4>
+                      <div className="flex items-center gap-8">
+                        <svg viewBox="0 0 100 100" width="100" height="100">
+                          <circle r="40" cx="50" cy="50" fill="#bbf7d0" />
+                          <path d="M50,50 L50,10 A40,40 0 0,1 90,50 Z" fill="#22C55E" />
+                          <path d="M50,50 L90,50 A40,40 0 0,1 50,90 Z" fill="#4ade80" />
+                        </svg>
+                        <div className="flex flex-col gap-2 text-sm">
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-500" /> Infaq (50%)
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-400" /> Zakat (30%)
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="inline-block w-3 h-3 rounded bg-green-200" /> Sedekah (20%)
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

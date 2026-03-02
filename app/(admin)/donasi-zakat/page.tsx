@@ -2,6 +2,9 @@
 import Sidebar from '@/app/(admin)/sidebar';
 import PageHeader from '@/components/common/page-header';
 import { useState } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 export default function DonasiZakatPage() {
   // Dummy data donasi & zakat
@@ -36,6 +39,32 @@ export default function DonasiZakatPage() {
   const totalDonasi = data.filter(d => d.jenis === 'Donasi' && d.aktif).reduce((a, b) => a + b.nominal, 0);
   const totalZakat = data.filter(d => d.jenis === 'Zakat' && d.aktif).reduce((a, b) => a + b.nominal, 0);
 
+  // Export PDF
+  const handleExportPDF = () => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [['Tanggal', 'Nama', 'Jenis', 'Nominal', 'Donatur', 'Keterangan', 'Status']],
+      body: filteredData.map(d => [d.tanggal, d.nama, d.jenis, d.nominal.toLocaleString(), d.donatur, d.keterangan, d.aktif ? 'Aktif' : 'Nonaktif']),
+    });
+    doc.save('donasi-zakat.pdf');
+  };
+
+  // Export Excel
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(filteredData.map(d => ({
+      Tanggal: d.tanggal,
+      Nama: d.nama,
+      Jenis: d.jenis,
+      Nominal: d.nominal,
+      Donatur: d.donatur,
+      Keterangan: d.keterangan,
+      Status: d.aktif ? 'Aktif' : 'Nonaktif',
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'DonasiZakat');
+    XLSX.writeFile(wb, 'donasi-zakat.xlsx');
+  };
+
   return (
     <div className="bg-zinc-100 min-h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -60,6 +89,14 @@ export default function DonasiZakatPage() {
                 className="rounded-xl bg-green-600 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-700"
                 onClick={() => setModal({mode:'add'})}
               >Tambah Data</button>
+              <button
+                className="rounded-xl bg-green-500 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-600"
+                onClick={handleExportPDF}
+              >Export PDF</button>
+              <button
+                className="rounded-xl bg-green-400 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-500"
+                onClick={handleExportExcel}
+              >Export Excel</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="bg-green-50 rounded-xl p-4 flex flex-col items-center">

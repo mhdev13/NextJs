@@ -3,6 +3,9 @@
 import Sidebar from '@/app/(admin)/sidebar';
 import PageHeader from '@/components/common/page-header';
 import { useState } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 export default function JamaahPage() {
   // Dummy data jamaah
@@ -33,6 +36,29 @@ export default function JamaahPage() {
     if (confirm('Yakin hapus data jamaah?')) setJamaah(jamaah.filter(j => j.id !== id));
   };
 
+  // Export PDF
+  const handleExportPDF = () => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [['Nama', 'Alamat', 'Telepon', 'Status']],
+      body: filteredJamaah.map(j => [j.nama, j.alamat, j.telepon, j.aktif ? 'Aktif' : 'Nonaktif']),
+    });
+    doc.save('data-jamaah.pdf');
+  };
+
+  // Export Excel
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(filteredJamaah.map(j => ({
+      Nama: j.nama,
+      Alamat: j.alamat,
+      Telepon: j.telepon,
+      Status: j.aktif ? 'Aktif' : 'Nonaktif',
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Jamaah');
+    XLSX.writeFile(wb, 'data-jamaah.xlsx');
+  };
+
   return (
     <div className="bg-zinc-100 min-h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -57,6 +83,14 @@ export default function JamaahPage() {
                 className="rounded-xl bg-green-600 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-700"
                 onClick={() => setModal({mode:'add'})}
               >Tambah Jamaah</button>
+              <button
+                className="rounded-xl bg-green-500 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-600"
+                onClick={handleExportPDF}
+              >Export PDF</button>
+              <button
+                className="rounded-xl bg-green-400 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-500"
+                onClick={handleExportExcel}
+              >Export Excel</button>
             </div>
             <div className="overflow-x-auto mt-2">
               <table className="min-w-full border rounded-xl overflow-hidden">

@@ -2,6 +2,9 @@
 import Sidebar from '@/app/(admin)/sidebar';
 import PageHeader from '@/components/common/page-header';
 import { useState } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 export default function KeuanganPage() {
   // Dummy data keuangan
@@ -35,6 +38,29 @@ export default function KeuanganPage() {
   // Hitung saldo
   const saldo = keuangan.reduce((acc, k) => k.tipe === 'Masuk' ? acc + k.jumlah : acc - k.jumlah, 0);
 
+  // Export PDF
+  const handleExportPDF = () => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [['Tanggal', 'Keterangan', 'Tipe', 'Jumlah (Rp)']],
+      body: filteredKeuangan.map(k => [k.tanggal, k.keterangan, k.tipe, k.jumlah.toLocaleString()]),
+    });
+    doc.save('data-keuangan.pdf');
+  };
+
+  // Export Excel
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(filteredKeuangan.map(k => ({
+      Tanggal: k.tanggal,
+      Keterangan: k.keterangan,
+      Tipe: k.tipe,
+      Jumlah: k.jumlah,
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Keuangan');
+    XLSX.writeFile(wb, 'data-keuangan.xlsx');
+  };
+
   return (
     <div className="bg-zinc-100 min-h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -59,6 +85,14 @@ export default function KeuanganPage() {
                 className="rounded-xl bg-green-600 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-700"
                 onClick={() => setModal({mode:'add'})}
               >Tambah Transaksi</button>
+              <button
+                className="rounded-xl bg-green-500 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-600"
+                onClick={handleExportPDF}
+              >Export PDF</button>
+              <button
+                className="rounded-xl bg-green-400 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-500"
+                onClick={handleExportExcel}
+              >Export Excel</button>
             </div>
             <div className="mb-4 text-green-700 font-bold text-lg">Saldo Masjid: Rp {saldo.toLocaleString()}</div>
             <div className="overflow-x-auto mt-2">

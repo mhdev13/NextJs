@@ -2,6 +2,9 @@
 import Sidebar from '@/app/(admin)/sidebar';
 import PageHeader from '@/components/common/page-header';
 import { useState } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 export default function JadwalPage() {
   // Dummy data jadwal kegiatan
@@ -32,6 +35,31 @@ export default function JadwalPage() {
     if (confirm('Yakin hapus jadwal kegiatan?')) setJadwal(jadwal.filter(j => j.id !== id));
   };
 
+  // Export PDF
+  const handleExportPDF = () => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: [['Tanggal', 'Nama Kegiatan', 'Pemateri', 'Lokasi', 'Jam', 'Status']],
+      body: filteredJadwal.map(j => [j.tanggal, j.nama, j.pemateri, j.lokasi, j.jam, j.aktif ? 'Aktif' : 'Nonaktif']),
+    });
+    doc.save('jadwal-kegiatan.pdf');
+  };
+
+  // Export Excel
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(filteredJadwal.map(j => ({
+      Tanggal: j.tanggal,
+      Nama: j.nama,
+      Pemateri: j.pemateri,
+      Lokasi: j.lokasi,
+      Jam: j.jam,
+      Status: j.aktif ? 'Aktif' : 'Nonaktif',
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Jadwal');
+    XLSX.writeFile(wb, 'jadwal-kegiatan.xlsx');
+  };
+
   return (
     <div className="bg-zinc-100 min-h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -56,6 +84,14 @@ export default function JadwalPage() {
                 className="rounded-xl bg-green-600 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-700"
                 onClick={() => setModal({mode:'add'})}
               >Tambah Kegiatan</button>
+              <button
+                className="rounded-xl bg-green-500 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-600"
+                onClick={handleExportPDF}
+              >Export PDF</button>
+              <button
+                className="rounded-xl bg-green-400 text-white px-4 py-2 text-sm font-bold shadow hover:bg-green-500"
+                onClick={handleExportExcel}
+              >Export Excel</button>
             </div>
             <div className="overflow-x-auto mt-2">
               <table className="min-w-full border rounded-xl overflow-hidden">
