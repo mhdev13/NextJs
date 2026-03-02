@@ -15,7 +15,7 @@ import { Metadata } from 'next';
 
 // define metadata untuk halaman sign-in
 export const metadata: Metadata = {
-  title: 'Dashboard - FullStack Next.js',
+  title: 'Dashboard - Masjidku Admin',
   description: 'Admin dashboard overview',
 };
 
