@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { authIsRequired } from "@/lib/auth/middleware";
 
 // import Sidebar
-import Sidebar from "@/components/layout/sidebar";
+import Sidebar from "@/app/(admin)/sidebar";
 
 // import PageHeader component
 import PageHeader from "@/components/common/page-header";

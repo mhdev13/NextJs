@@ -18,22 +18,25 @@ export function SignInForm() {
     const [formState, formAction, isPending] = useActionState(signInAction, initialState);
 
     return (
-        <div className="relative min-h-[calc(100vh-4rem)] bg-zinc-100">
+        <div className="relative min-h-[calc(100vh-4rem)] bg-gradient-to-br from-green-50 to-green-100">
             {/* Subtle background effects */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <div className="absolute -top-24 left-10 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-200/40 blur-3xl" />
-                <div className="absolute -bottom-24 right-10 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+                <div className="absolute -top-24 left-10 h-72 w-72 -translate-x-1/2 rounded-full bg-green-300/40 blur-3xl animate-pulse" />
+                <div className="absolute -bottom-24 right-10 h-72 w-72 rounded-full bg-green-200/40 blur-3xl animate-pulse" />
             </div>
 
             <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-xl items-center px-6 py-14">
                 <div className="w-full">
-                    <div className="rounded-3xl bg-white p-8 shadow-sm backdrop-blur sm:p-10">
+                    <div className="rounded-3xl bg-white p-8 shadow-lg backdrop-blur border border-green-100 sm:p-10">
                         <div className="mb-8 text-center">
-                            <h3 className="text-3xl font-semibold tracking-tight text-zinc-900">
-                                Sign in
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-600 mb-3 shadow-lg">
+                                <svg width="28" height="28" fill="none" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#22C55E"/><path d="M14 8a3 3 0 0 1 3 3v2h2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h2v-2a3 3 0 0 1 3-3z" fill="#fff"/></svg>
+                            </span>
+                            <h3 className="text-3xl font-extrabold tracking-tight text-green-700">
+                                Masuk Pengurus Masjid
                             </h3>
                             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                                Enter your email below to login to your account
+                                Masukkan email dan password untuk login ke dashboard pengurus masjid.
                             </p>
                         </div>
 
@@ -48,9 +51,9 @@ export function SignInForm() {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="block text-sm font-medium text-zinc-800"
+                                    className="block text-sm font-semibold text-green-700"
                                 >
-                                    Email address
+                                    Email Pengurus
                                 </label>
                                 <div className="mt-2">
                                     <input
@@ -58,9 +61,9 @@ export function SignInForm() {
                                         name="email"
                                         type="email"
                                         autoComplete="email"
-                                        className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition focus:ring-2 focus:ring-zinc-900/10 ${formState?.errors?.email?.length ? "border-red-300" : "border-zinc-200"
+                                        className={`block w-full rounded-2xl border bg-green-50 px-4 py-3 text-sm text-green-900 placeholder-green-400 outline-none transition focus:ring-2 focus:ring-green-500/10 ${formState?.errors?.email?.length ? "border-red-300" : "border-green-200"
                                             }`}
-                                        placeholder="you@example.com"
+                                        placeholder="pengurus@masjid.com"
                                     />
                                 </div>
                                 {formState?.errors?.email?.length ? (
@@ -73,15 +76,15 @@ export function SignInForm() {
                                 <div className="flex items-center justify-between">
                                     <label
                                         htmlFor="password"
-                                        className="block text-sm font-medium text-zinc-800"
+                                        className="block text-sm font-semibold text-green-700"
                                     >
                                         Password
                                     </label>
                                     <Link
                                         href="/forgot-password"
-                                        className="text-xs font-medium text-zinc-900 underline underline-offset-4 hover:text-zinc-700"
+                                        className="text-xs font-semibold text-green-700 underline underline-offset-4 hover:text-green-900"
                                     >
-                                        Forgot password?
+                                        Lupa password?
                                     </Link>
                                 </div>
                                 <div className="mt-2">
@@ -90,7 +93,7 @@ export function SignInForm() {
                                         name="password"
                                         type="password"
                                         autoComplete="current-password"
-                                        className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition focus:ring-2 focus:ring-zinc-900/10 ${formState?.errors?.password?.length ? "border-red-300" : "border-zinc-200"
+                                        className={`block w-full rounded-2xl border bg-green-50 px-4 py-3 text-sm text-green-900 placeholder-green-400 outline-none transition focus:ring-2 focus:ring-green-500/10 ${formState?.errors?.password?.length ? "border-red-300" : "border-green-200"
                                             }`}
                                         placeholder="••••••••"
                                     />
@@ -106,10 +109,10 @@ export function SignInForm() {
                                     id="remember"
                                     name="remember"
                                     type="checkbox"
-                                    className="h-4 w-4 rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900/20"
+                                    className="h-4 w-4 rounded border-green-300 text-green-700 focus:ring-green-500/20"
                                 />
-                                <label htmlFor="remember" className="text-sm text-zinc-700">
-                                    Remember me for 30 days
+                                <label htmlFor="remember" className="text-sm text-green-700">
+                                    Ingat saya selama 30 hari
                                 </label>
                             </div>
 
@@ -118,32 +121,32 @@ export function SignInForm() {
                                 <button
                                     type="submit"
                                     disabled={isPending}
-                                    className="w-full rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-zinc-900/20"
+                                    className="w-full rounded-full bg-green-600 px-5 py-3 text-base font-bold text-white shadow-lg transition hover:bg-green-700 disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-green-500/20"
                                 >
-                                    {isPending ? "Signing in..." : "Sign in"}
+                                    {isPending ? "Sedang masuk..." : "Masuk"}
                                 </button>
 
-                                <p className="mt-4 text-center text-xs text-zinc-500">
-                                    Don't have an account?{" "}
+                                <p className="mt-4 text-center text-xs text-green-700">
+                                    Belum punya akun?{" "}
                                     <Link
                                         href="/sign-up"
-                                        className="font-medium text-zinc-900 underline underline-offset-4 hover:text-zinc-700"
+                                        className="font-bold text-green-700 underline underline-offset-4 hover:text-green-900"
                                     >
-                                        Sign up
+                                        Daftar
                                     </Link>
                                 </p>
                             </div>
                         </form>
                     </div>
 
-                    <p className="mt-6 text-center text-xs text-zinc-500">
-                        By continuing, you agree to our{" "}
-                        <a href="#" className="underline underline-offset-4 hover:text-zinc-700">
-                            Terms
-                        </a>{" "}
-                        and{" "}
-                        <a href="#" className="underline underline-offset-4 hover:text-zinc-700">
-                            Privacy Policy
+                    <p className="mt-6 text-center text-xs text-green-700">
+                        Dengan melanjutkan, Anda setuju dengan
+                        <a href="#" className="underline underline-offset-4 hover:text-green-900 mx-1">
+                            Syarat
+                        </a>
+                        dan
+                        <a href="#" className="underline underline-offset-4 hover:text-green-900 mx-1">
+                            Kebijakan Privasi
                         </a>
                         .
                     </p>
