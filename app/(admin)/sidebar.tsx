@@ -7,15 +7,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // import icon dari lucide-react
-import { LayoutDashboard, Users, LogOut, CalendarDays, HeartHandshake, FileText } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, CalendarDays, HeartHandshake, FileText, X, Menu } from "lucide-react";
 
 // import action logoutAction
 import { logoutAction } from "@/app/actions/auth/sign-in";
 
+
+import { useState } from "react";
+
 export default function Sidebar() {
+
 
     // hooks get pathname
     const pathname = usePathname();
+    // sidebar open/close state
+    const [open, setOpen] = useState(true);
 
     // helper untuk cek menu aktif
     const active = (href: string) =>
@@ -35,73 +41,94 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="w-full md:w-64 shrink-0 rounded-3xl bg-white p-4 shadow-lg border border-green-100">
-            <div className="flex h-full flex-col">
-                {/* Brand */}
-                <div className="mb-3 flex items-center gap-3 px-2 border-b border-green-200 pb-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-600 text-xs font-extrabold text-white shadow-lg">
-                        <span className="text-lg">🕌</span>
+        <>
+            {/* Toggle button (mobile) */}
+            <button
+                className="md:hidden fixed top-4 left-4 z-50 bg-green-600 text-white rounded-full p-2 shadow-lg"
+                onClick={() => setOpen(o => !o)}
+                aria-label={open ? "Tutup Sidebar" : "Buka Sidebar"}
+            >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+            {/* Sidebar */}
+            <aside
+                className={`fixed md:static top-0 left-0 h-screen md:h-auto w-64 shrink-0 rounded-3xl bg-white p-4 shadow-lg border border-green-100 z-40 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
+            >
+                <div className="flex h-full flex-col">
+                    {/* Brand */}
+                    <div className="mb-3 flex items-center gap-3 px-2 border-b border-green-200 pb-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-600 text-xs font-extrabold text-white shadow-lg">
+                            <span className="text-lg">🕌</span>
+                        </div>
+                        <span className="text-base font-extrabold text-green-700">
+                            Masjidku Admin
+                        </span>
                     </div>
-                    <span className="text-base font-extrabold text-green-700">
-                        Masjidku Admin
-                    </span>
+
+                    {/* Menu */}
+                    <nav className="flex flex-1 flex-col gap-1">
+                        <Link
+                            href="/dashboard"
+                            className={itemClass(active("/dashboard"))}
+                        >
+                            <LayoutDashboard className="h-4 w-4" />
+                            Dashboard
+                        </Link>
+                        <Link
+                            href="/jamaah"
+                            className={itemClass(active("/jamaah"))}
+                        >
+                            <Users className="h-4 w-4" />
+                            Data Jamaah
+                        </Link>
+                        <Link
+                            href="/keuangan"
+                            className={itemClass(active("/keuangan"))}
+                        >
+                            <FileText className="h-4 w-4" />
+                            Keuangan Masjid
+                        </Link>
+                        <Link
+                            href="/jadwal"
+                            className={itemClass(active("/jadwal"))}
+                        >
+                            <CalendarDays className="h-4 w-4" />
+                            Jadwal Kegiatan
+                        </Link>
+                        <Link
+                            href="/donasi-zakat"
+                            className={itemClass(active("/donasi-zakat"))}
+                        >
+                            <HeartHandshake className="h-4 w-4" />
+                            Donasi & Zakat
+                        </Link>
+                        <Link
+                            href="/laporan"
+                            className={itemClass(active("/laporan"))}
+                        >
+                            <FileText className="h-4 w-4" />
+                            Laporan Masjid
+                        </Link>
+                    </nav>
+
+                    {/* Logout */}
+                    <button
+                        onClick={handleLogout}
+                        className="mt-4 flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-100 transition"
+                    >
+                        <LogOut className="h-4 w-4" />
+                        Keluar
+                    </button>
                 </div>
-
-                {/* Menu */}
-                <nav className="flex flex-1 flex-col gap-1">
-                    <Link
-                        href="/dashboard"
-                        className={itemClass(active("/dashboard"))}
-                    >
-                        <LayoutDashboard className="h-4 w-4" />
-                        Dashboard
-                    </Link>
-                    <Link
-                        href="/jamaah"
-                        className={itemClass(active("/jamaah"))}
-                    >
-                        <Users className="h-4 w-4" />
-                        Data Jamaah
-                    </Link>
-                    <Link
-                        href="/keuangan"
-                        className={itemClass(active("/keuangan"))}
-                    >
-                        <FileText className="h-4 w-4" />
-                        Keuangan Masjid
-                    </Link>
-                    <Link
-                        href="/jadwal"
-                        className={itemClass(active("/jadwal"))}
-                    >
-                        <CalendarDays className="h-4 w-4" />
-                        Jadwal Kegiatan
-                    </Link>
-                    <Link
-                        href="/donasi-zakat"
-                        className={itemClass(active("/donasi-zakat"))}
-                    >
-                        <HeartHandshake className="h-4 w-4" />
-                        Donasi & Zakat
-                    </Link>
-                    <Link
-                        href="/laporan"
-                        className={itemClass(active("/laporan"))}
-                    >
-                        <FileText className="h-4 w-4" />
-                        Laporan Masjid
-                    </Link>
-                </nav>
-
-                {/* Logout */}
-                <button
-                    onClick={handleLogout}
-                    className="mt-4 flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-100 transition"
-                >
-                    <LogOut className="h-4 w-4" />
-                    Keluar
-                </button>
-            </div>
-        </aside>
+            </aside>
+            {/* Overlay (mobile, sidebar open) */}
+            {open && (
+                <div
+                    className="fixed inset-0 bg-black/20 z-30 md:hidden"
+                    onClick={() => setOpen(false)}
+                    aria-label="Tutup Sidebar"
+                />
+            )}
+        </>
     );
 }
