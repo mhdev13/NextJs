@@ -41,7 +41,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
 
                 {/* Name */}
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-zinc-800">
+                    <label htmlFor="name" className="block text-sm font-medium text-green-800">
                         Full Name
                     </label>
                     <div className="mt-2">
@@ -51,7 +51,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                             type="text"
                             autoComplete="name"
                             defaultValue={user?.name ?? ""}
-                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition focus:ring-2 focus:ring-zinc-900/10 ${formState?.errors?.name?.length ? "border-red-300" : "border-zinc-200"
+                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-green-900 placeholder-green-400 outline-none transition focus:ring-2 focus:ring-green-200/60 ${formState?.errors?.name?.length ? "border-red-300" : "border-green-200"
                                 }`}
                             placeholder="User full name"
                             disabled={isPending}
@@ -66,7 +66,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
 
                 {/* Email */}
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-zinc-800">
+                    <label htmlFor="email" className="block text-sm font-medium text-green-800">
                         Email address
                     </label>
                     <div className="mt-2">
@@ -76,7 +76,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                             type="email"
                             autoComplete="email"
                             defaultValue={user?.email ?? ""}
-                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition focus:ring-2 focus:ring-zinc-900/10 ${formState?.errors?.email?.length ? "border-red-300" : "border-zinc-200"
+                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-green-900 placeholder-green-400 outline-none transition focus:ring-2 focus:ring-green-200/60 ${formState?.errors?.email?.length ? "border-red-300" : "border-green-200"
                                 }`}
                             placeholder="you@example.com"
                             disabled={isPending}
@@ -91,8 +91,8 @@ export default function UserEditForm({ user }: UserEditFormProps) {
 
                 {/* Password */}
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-zinc-800">
-                        New Password <span className="text-zinc-500">(optional)</span>
+                    <label htmlFor="password" className="block text-sm font-medium text-green-800">
+                        New Password <span className="text-green-500">(optional)</span>
                     </label>
                     <div className="mt-2">
                         <input
@@ -100,14 +100,14 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                             name="password"
                             type="password"
                             autoComplete="new-password"
-                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 outline-none transition focus:ring-2 focus:ring-zinc-900/10 ${formState?.errors?.password?.length ? "border-red-300" : "border-zinc-200"
+                            className={`block w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm text-green-900 placeholder-green-400 outline-none transition focus:ring-2 focus:ring-green-200/60 ${formState?.errors?.password?.length ? "border-red-300" : "border-green-200"
                                 }`}
                             placeholder="Leave blank to keep current password"
                             disabled={isPending}
                         />
                     </div>
 
-                    <p className="mt-2 text-sm text-zinc-500">Kosongkan jika tidak ingin mengganti password.</p>
+                    <p className="mt-2 text-sm text-green-500">Kosongkan jika tidak ingin mengganti password.</p>
 
                     {/* Password error */}
                     {formState?.errors?.password?.length ? (
@@ -119,7 +119,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-end">
                     <Link
                         href="/users"
-                        className="inline-flex items-center justify-center rounded-full border border-zinc-200 bg-white px-5 py-3 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-50"
+                        className="inline-flex items-center justify-center rounded-full border border-green-200 bg-white px-5 py-3 text-sm font-semibold text-green-800 transition hover:bg-green-50"
                     >
                         Cancel
                     </Link>
@@ -127,7 +127,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="inline-flex items-center justify-center rounded-full bg-zinc-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-zinc-900/20"
+                        className="inline-flex items-center justify-center rounded-full bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-green-200/40"
                     >
                         {isPending ? (
                             <span className="inline-flex items-center justify-center gap-2">

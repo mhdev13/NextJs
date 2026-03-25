@@ -74,6 +74,13 @@ export default function Sidebar() {
                             <LayoutDashboard className="h-4 w-4" />
                             Dashboard
                         </Link>
+                          <Link
+                            href="/users"
+                            className={itemClass(active("/users"))}
+                        >
+                            <Users className="h-4 w-4" />
+                            Pengguna
+                        </Link>
                         <Link
                             href="/jamaah"
                             className={itemClass(active("/jamaah"))}

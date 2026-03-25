@@ -38,7 +38,7 @@ export default async function UsersPage() {
     });
 
     return (
-        <div className="bg-zinc-100">
+        <div className="bg-green-50">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
                 <div className="flex flex-col gap-6 lg:flex-row">
                     {/* Sidebar */}
@@ -47,7 +47,7 @@ export default async function UsersPage() {
                     </div>
 
                     {/* Main Content */}
-                    <main className="flex-1 rounded-3xl bg-white p-5 sm:p-8 shadow-sm">
+                    <main className="flex-1 rounded-3xl bg-white p-5 sm:p-8 shadow-sm border border-green-100">
                         {/* Page Header */}
                         <PageHeader
                             title="Users Management"
@@ -55,7 +55,7 @@ export default async function UsersPage() {
                             action={
                                 <Link
                                     href="/users/create"
-                                    className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800"
+                                    className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700"
                                 >
                                     Add User
                                 </Link>
